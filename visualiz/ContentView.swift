@@ -28,6 +28,10 @@ struct ContentView: View {
                     if panel.runModal() == .OK, let folderURL = panel.url {
                         selectedFolderPath = folderURL.path
                         
+                        // Populate "swiftFileURLs" and "discoveredViews"
+                        swiftFileURLs = swiftFiles(in: folderURL)
+                        discoveredViews = buildViewNodes(in: folderURL)
+                        
                         // 1) Build the AST
                         let roots = twoPassBuildAST(in: folderURL)
                         self.astRoots = roots
